@@ -26,24 +26,16 @@ class Main(QWidget):
         text = self.qTextEditSourceText.toPlainText()  # получаем наш текст
 
         array = re.split(" |\n", text)
-        array1 = []
+        array = sorted(array)
+        # array.sort()
+        array = set(array)
+
+        sub_array = []
         for i in array:
-            sub_array = []
-            if i:
-                for j in i:
-                    sub_array.append(j.lower())
-                array1.append(sub_array)
-
-        # print(array1)
-
-        same_letters = []
-        for i in array1:
-            if(i[0] == i[-1]):
-                same_letters.append(i)
-                for j in i:
-                    self.qTextEditOutputText.insertPlainText(j)
-                self.qTextEditOutputText.insertPlainText(" ")
-        # print(same_letters)
+            if len(i) >= 2:
+                if (i[0].lower() == i[-1].lower()):
+                    self.qTextEditOutputText.insertPlainText(i)
+                self.qTextEditOutputText.insertPlainText("\n")
 
 
     def qPushButtonClearOnClick(self):
@@ -56,7 +48,6 @@ def main():
     window = Main()
     window.show()
     sys.exit(app.exec_())
-
 
 if __name__ == '__main__':
     main()
